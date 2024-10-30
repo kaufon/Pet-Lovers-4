@@ -1,0 +1,6 @@
+{
+  "name": "server",
+  "scripts": {
+    "dev": "java -jar ./executavel/pl.jar "
+  }
+}

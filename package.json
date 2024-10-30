@@ -1,9 +1,9 @@
 {
-  "name": "PetLovers3",
+  "name": "PetLovers4",
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
+    "dev": "turbo  dev ",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
