@@ -6,7 +6,7 @@ Antes de começar, certifique-se de que você tem o seguinte instalado em sua m�
 
 1. **Node.js**: Baixe e instale o Node.js a partir de [nodejs.org](https://nodejs.org/). Isso também instalará o npm (Node Package Manager).
 2. **Git**: Baixe e instale o Git a partir de [git-scm.com](https://git-scm.com/).
-3. **JDK**: Baixe e instale Java Development Kit a partir de [oracle](https://www.oracle.com/br/java/technologies/downloads/)
+3. **JDK17**: Baixe e instale Java Development Kit(acima da versão 17) a partir de [oracle](https://www.oracle.com/br/java/technologies/downloads/)
 
 ### Passo 1: Clonar o Repositório
 
