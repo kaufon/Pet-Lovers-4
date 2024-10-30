@@ -6,13 +6,14 @@ Antes de começar, certifique-se de que você tem o seguinte instalado em sua m�
 
 1. **Node.js**: Baixe e instale o Node.js a partir de [nodejs.org](https://nodejs.org/). Isso também instalará o npm (Node Package Manager).
 2. **Git**: Baixe e instale o Git a partir de [git-scm.com](https://git-scm.com/).
+3. **JDK**: Baixe e instale Java Development Kit a partir de [oracle](https://www.oracle.com/br/java/technologies/downloads/)
 
 ### Passo 1: Clonar o Repositório
 
 Abra o seu prompt de comando (cmd) ou PowerShell e execute o seguinte comando para clonar o repositório:
 
 ```bash
-git clone https://github.com/kaufon/Pet-Lovers-3.git
+git clone https://github.com/kaufon/Pet-Lovers-4.git
 ```
 
 ### Passo 2: Navegar até o Diretório do Projeto
@@ -20,7 +21,7 @@ git clone https://github.com/kaufon/Pet-Lovers-3.git
 Mude para o diretório do projeto:
 
 ```bash
-cd  Pet-Lovers-3/
+cd  Pet-Lovers-4/
 ```
 
 ### Passo 2: Instalar Dependências
