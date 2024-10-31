@@ -1,1 +1,1 @@
-export {addUrlParams} from './add-url-params'
+export { addUrlParams } from "./add-url-params";
