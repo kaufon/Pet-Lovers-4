@@ -14,8 +14,12 @@ import { DollarSign, Pen, Trash } from "lucide-react";
 import { RegisterClientForm } from "./register-client-form";
 import { AlertModal } from "../../commons/alert-modal";
 import { ConsumeForm } from "./consume-form";
+import { useApi } from "@/src/ui/hooks/use-api";
+import { useDashboard } from "./use-dashboard";
 
 export const DashBoardPage = () => {
+  const data = useDashboard();
+  console.log(data);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isAlertModalOpen, setAlertModalOpen] = useState(false);
   const [isConsumeModalOpen, setConsumeModalOpen] = useState(false);
@@ -82,5 +86,3 @@ export const DashBoardPage = () => {
     </>
   );
 };
-
-
