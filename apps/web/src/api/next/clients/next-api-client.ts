@@ -1,5 +1,5 @@
-import { CacheConfig } from "../types/cache-config";
-import { IApiClient } from "../../../../../../packages/core/";
+import type { CacheConfig } from "../types/cache-config";
+import type { IApiClient } from "../../../../../../packages/core/";
 import { addUrlParams } from "../utils";
 import { ApiResponse } from "../../../../../../packages/core/responses/api-response";
 import { handleApiError } from "../utils/handle-api-error";
@@ -21,7 +21,7 @@ export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
       params = {};
       const data = await response.json();
 
-      if (!response.ok) {
+      if (!response.status >= 400) {
         return handleApiError<ResponseBody>(data, response.status);
       }
 
@@ -69,23 +69,24 @@ export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
       });
     },
 
-    async delete(url: string, body: unknown) {
+    async delete(url: string, body: unknown): Promise<ApiResponse<void>> {
+      console.log(body);
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
         method: "DELETE",
         headers,
-        body: JSON.stringify(body),
+        body: body ? JSON.stringify(body) : undefined,
       });
       params = {};
-      const data = await response.json();
-
-      if (!response.ok) {
-        return handleApiError(data, response.status);
+      if (response.ok) {
+        return new ApiResponse<void>({
+          body: undefined, 
+          statusCode: response.status,
+        });
       }
 
-      return new ApiResponse({
-        body: data,
-        statusCode: response.status,
-      });
+      
+      const data = await response.json().catch(() => null);
+      return handleApiError(data, response.status);
     },
 
     async multipart<ResponseBody>(url: string, body: FormData) {
