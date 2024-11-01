@@ -1,5 +1,5 @@
-import { NextServerApiClient } from "@/src/api/next/clients";
-import { ClientsService } from "@/src/api/services/client-service";
+import { NextServerApiClient } from "../../api/next/clients";
+import { ClientsService } from "../../api/services";
 
 const nextApiClient = NextServerApiClient();
 
