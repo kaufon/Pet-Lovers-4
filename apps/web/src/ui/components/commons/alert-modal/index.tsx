@@ -10,10 +10,11 @@ import React from "react";
 
 interface AlertModalProps {
   isOpen: boolean;
-  isClosed: () => void;
+  isClosed: VoidFunction
+  onConfirm: VoidFunction
 }
 
-export const AlertModal  = ({ isOpen, isClosed }:AlertModalProps) => {
+export const AlertModal  = ({ isOpen, isClosed,onConfirm }:AlertModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={isClosed}>
       <ModalContent>
@@ -38,7 +39,7 @@ export const AlertModal  = ({ isOpen, isClosed }:AlertModalProps) => {
               <Button
                 color="success"
                 className="text-green-600 bg-opacity-20"
-                onPress={onClose}
+                onPress={onConfirm}
               >
                 Confirmar
               </Button>
