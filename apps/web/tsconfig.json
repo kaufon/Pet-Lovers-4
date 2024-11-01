@@ -18,9 +18,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl":"../../",
     "paths": {
-      "@/*": [
-        "./*"
+      "@core/*": [
+        "packages/core/*"
       ]
     },
     "plugins": [
