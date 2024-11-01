@@ -1,9 +1,34 @@
-import { useApi } from "@/src/ui/hooks/use-api";
+"use client";
+import { CACHE } from "apps/web/src/constants";
+import { useApi } from "../../../hooks/use-api";
+import { useCache } from "../../../hooks/use-cache";
+import { useState } from "react";
 
-export async function useDashboard() {
+export function useDashboard() {
   const { clientService } = useApi();
-  const data = await clientService.listUsers()
-  return {
-    data
+  async function fetchClients() {
+    const response = await clientService.listUsers();
+    if (response.isFailure) {
+      throw new Error(response.errorMessage);
+    }
+    return response.body;
   }
+  const { data, refetch, isFetching } = useCache({
+    fetcher: fetchClients,
+    refreshInterval: 3000,
+    key: CACHE.client.key,
+  });
+  async function deleteClient(clientId: number) {
+    const response = await clientService.deleteUser(clientId);
+    if (response.isFailure) {
+      throw new Error(response.errorMessage);
+    }
+    refetch();
+  }
+  const clients = data ? data : [];
+  return {
+    clients,
+    deleteClient,
+    isLoading: isFetching,
+  };
 }
