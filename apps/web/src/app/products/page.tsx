@@ -1,4 +1,4 @@
-import { ProductsPage } from "@/src/ui/components/pages/products"
+import { ProductsPage } from "../../ui/components/pages/products" 
 
 const Page = () => {
   return <ProductsPage/>

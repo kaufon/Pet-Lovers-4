@@ -11,8 +11,11 @@ import {
 import { ClientsService } from "apps/web/src/api/services";
 import { DollarSign, Pen, Trash } from "lucide-react";
 import { AlertModal } from "../../../commons/alert-modal";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useClientTable } from "./use-client-table";
+import { Drawer } from "../../../commons/drawer";
+import { UpdateClientForm } from "../update-client-form";
+import type { DrawerRef } from "../../../commons/drawer/types/drawer-ref";
 
 type ClientTableProps = {
   isLoading: boolean;
@@ -24,7 +27,16 @@ export const ClientTable = ({
   clients,
   handleDeleteClient,
 }: ClientTableProps) => {
-  const { handleClientDeleteSelection, clientBeingDeleted } = useClientTable();
+  const drawerRef = useRef<DrawerRef>(null);
+  const {
+    handleClientDeleteSelection,
+    clientBeingDeleted,
+    clientBeingEditted,
+    handleClientEditSelection,
+    handleDrawerClose,
+    handleClientEditFormSubmit,
+    handleCancelEditting,
+  } = useClientTable({ drawerRef });
   const [isAlertModalOpen, setAlertModalOpen] = useState(false);
   const openAlertModal = () => setAlertModalOpen(true);
   const closeAlertModal = () => setAlertModalOpen(false);
@@ -67,7 +79,7 @@ export const ClientTable = ({
               <TableCell>
                 <div className="flex flex-row gap-3 text-zinc-400">
                   <Tooltip content="Editar">
-                    <Pen />
+                    <Pen onClick={() => handleClientEditSelection(client)} />
                   </Tooltip>
                   <Tooltip content="Deletar">
                     <Trash
@@ -93,6 +105,17 @@ export const ClientTable = ({
           closeAlertModal();
         }}
       />
+      <Drawer ref={drawerRef} trigger={null} onClose={handleDrawerClose}>
+        {() =>
+          clientBeingEditted && (
+            <UpdateClientForm
+              client={clientBeingEditted}
+              onSubmit={handleClientEditFormSubmit}
+              onCancel={handleCancelEditting}
+            />
+          )
+        }
+      </Drawer>
     </>
   );
 };

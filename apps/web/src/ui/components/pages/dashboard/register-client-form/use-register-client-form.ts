@@ -18,7 +18,7 @@ const RegisterClientFormSchema = z.object({
   telefones: z.array(cellPhoneSchema),
 });
 type RegisterClientFormData = z.infer<typeof RegisterClientFormSchema>;
-export function useRegisterClientForm() {
+export function useRegisterClientForm(onSubmit:VoidFunction) {
   const { clientService } = useApi();
   const [cepError, setCepError] = useState<string | null>(null);
   const { register, reset, setValue, handleSubmit, formState } =
@@ -31,13 +31,14 @@ export function useRegisterClientForm() {
       throw new Error(response.errorMessage);
     }
     reset();
+    onSubmit()
   }
   async function addressByCep(cep: string) {
     const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
     const data = await response.json();
     console.log(data)
     if (data.erro) {
-      setCepError("CEP INEXISTENTE");
+      setCepError("Cep Inexistente");
       return null;
     }
     setCepError(null)

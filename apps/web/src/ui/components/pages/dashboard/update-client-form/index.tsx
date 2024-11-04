@@ -1,28 +1,37 @@
-import type { CepAddress } from "@core/dtos";
+import type { CepAddress, ClientDto } from "@core/dtos";
 import { Button, Input } from "@nextui-org/react";
 import { useState } from "react";
-import { useRegisterClientForm } from "./use-register-client-form";
+import { useUpdateClientForm } from "./use-update-client-form";
 
-interface RegisterClientFormProps {
+interface UpdateClientFormProps {
   onCancel: VoidFunction;
   onSubmit: VoidFunction;
+  client: ClientDto;
 }
 
-export const RegisterClientForm = ({
+export const UpdateClientForm = ({
   onCancel,
   onSubmit,
-}: RegisterClientFormProps) => {
+  client,
+}: UpdateClientFormProps) => {
   const [address, setAddress] = useState<CepAddress | null>(null);
   const [isCepRegistered, setIsCepRegistered] = useState(false);
-  const { register, handleSubmit, error, addressByCep, setValue, cepError } =
-    useRegisterClientForm(onSubmit);
+  const {
+    register,
+    handleSubmit,
+    isDirty,
+    error,
+    addressByCep,
+    cepError,
+    setValue,
+  } = useUpdateClientForm({ client, onSubmit });
 
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="w-full flex justify-between items-center">
           <h1 className="text-3xl text-center w-full font-bold">
-            Registrar cliente
+            Atualizar cliente
           </h1>
         </div>
         <div className="grid grid-cols-2 gap-5">
@@ -56,33 +65,36 @@ export const RegisterClientForm = ({
             errorMessage={cepError}
             onChange={async (e) => {
               const cepValue = e.target.value;
-              setValue("endereco.codigoPostal", cepValue);
+              setValue("endereco.codigoPostal", cepValue, {
+                shouldDirty: true,
+              });
               if (cepValue.length === 8) {
                 const addressData = await addressByCep(cepValue);
                 if (addressData) {
                   setAddress(addressData);
-                  setValue("endereco.rua", addressData.logradouro || "");
-                  setValue("endereco.estado", addressData.uf || "");
-                  setValue("endereco.cidade", addressData.localidade || "");
-                  setValue("endereco.bairro", addressData.bairro || "");
-                  setValue("telefones.0.ddd", addressData.ddd || "");
+
+                  setValue("endereco.estado", addressData.estado);
+                  setValue("endereco.cidade", addressData.localidade);
+                  setValue("endereco.bairro", addressData.bairro);
+                  setValue("endereco.rua", addressData.logradouro);
+                  setIsCepRegistered(true);
                 }
               }
             }}
           />
           <Input
             label="Estado"
-            value={address?.estado || ""}
+            value={address?.estado || client.endereco.estado}
             {...register("endereco.estado")}
             errorMessage={error.endereco?.estado?.message}
             isInvalid={Boolean(error.endereco?.estado)}
-            isReadOnly={isCepRegistered}
+            isDisabled={isCepRegistered}
           />
         </div>
         <div className="grid grid-rows-5 gap-5">
           <Input
             label="Cidade"
-            value={address?.localidade || ""}
+            value={address?.localidade || client.endereco.cidade}
             {...register("endereco.cidade")}
             errorMessage={error.endereco?.cidade?.message}
             isInvalid={Boolean(error.endereco?.cidade)}
@@ -90,7 +102,7 @@ export const RegisterClientForm = ({
           />
           <Input
             label="Bairro"
-            value={address?.bairro || ""}
+            value={address?.bairro || client.endereco.bairro}
             {...register("endereco.bairro")}
             errorMessage={error.endereco?.bairro?.message}
             isInvalid={Boolean(error.endereco?.bairro)}
@@ -98,7 +110,7 @@ export const RegisterClientForm = ({
           />
           <Input
             label="Rua"
-            value={address?.logradouro || ""}
+            value={address?.logradouro || client.endereco.rua}
             {...register("endereco.rua")}
             errorMessage={error.endereco?.rua?.message}
             isInvalid={Boolean(error.endereco?.rua)}
@@ -121,7 +133,7 @@ export const RegisterClientForm = ({
         <div className="grid grid-cols-2 gap-5">
           <Input
             type="number"
-            value={address?.ddd || ""}
+            value={address?.ddd || client.telefones[0].ddd}
             label="DDD"
             {...register("telefones.0.ddd")}
             errorMessage={error.telefones?.[0]?.ddd?.message}
@@ -147,6 +159,7 @@ export const RegisterClientForm = ({
             type="submit"
             color="success"
             className="text-green-600 bg-opacity-20"
+            isDisabled={!isDirty}
           >
             Confirmar
           </Button>

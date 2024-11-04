@@ -6,6 +6,16 @@ export const ClientsService = (apiClient: IApiClient): IClientService => {
     async listClients() {
       return await apiClient.get<ClientDto[]>("/cliente/clientes");
     },
+    async updateClient(partialClientDto: Partial<ClientDto>, clientId: number) {
+      console.log("Updating client with:", {
+        id: clientId,
+        ...partialClientDto,
+      });
+      return await apiClient.put("/cliente/atualizar", {
+        id: clientId,
+        ...partialClientDto,
+      });
+    },
     async deleteClient(userId: number) {
       return await apiClient.delete("/cliente/excluir", { id: userId });
     },

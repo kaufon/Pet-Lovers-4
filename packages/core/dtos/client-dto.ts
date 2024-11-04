@@ -4,7 +4,7 @@ export type ClientDto = {
   id?: number;
   nome: string;
   nomeSocial: string;
-  email: string | null;
+  email: string | undefined;
   endereco: AddressDto;
   telefones: CellPhoneDto[];
 };

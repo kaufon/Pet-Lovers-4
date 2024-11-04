@@ -38,7 +38,7 @@ export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
         body: body ? JSON.stringify(body) : undefined,
       });
       params = {};
-      if (response.ok){
+      if (response.ok) {
         return new ApiResponse<ResponseBody>({
           body: undefined,
           statusCode: response.status,
@@ -53,19 +53,18 @@ export const NextApiClient = (cacheConfig?: CacheConfig): IApiClient => {
       const response = await fetch(`${baseUrl}${addUrlParams(url, params)}`, {
         method: "PUT",
         headers,
-        body: JSON.stringify(body) ?? {},
+        body: body ? JSON.stringify(body) : undefined,
       });
       params = {};
-      const data = await response.json();
-
-      if (!response.ok) {
-        return handleApiError<ResponseBody>(data, response.status);
+      if (response.ok) {
+        return new ApiResponse<ResponseBody>({
+          body: undefined,
+          statusCode: response.status,
+        });
       }
 
-      return new ApiResponse<ResponseBody>({
-        body: data,
-        statusCode: response.status,
-      });
+      const data = await response.json().catch(() => null);
+      return handleApiError(data, response.status);
     },
 
     async delete(url: string, body: unknown): Promise<ApiResponse<void>> {
