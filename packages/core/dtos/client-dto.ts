@@ -7,5 +7,4 @@ export type ClientDto = {
   email: string | null;
   endereco: AddressDto;
   telefones: CellPhoneDto[];
-  links: LinkDto[];
 };
