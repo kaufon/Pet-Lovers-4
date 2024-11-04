@@ -31,7 +31,7 @@ export const ClientTable = ({
 
   return (
     <>
-      <Table selectionMode="none" shadow="md">
+      <Table aria-label="Banana" selectionMode="none" shadow="md">
         <TableHeader>
           <TableColumn>Nome</TableColumn>
           <TableColumn>Nome Social</TableColumn>
@@ -66,9 +66,6 @@ export const ClientTable = ({
               </TableCell>
               <TableCell>
                 <div className="flex flex-row gap-3 text-zinc-400">
-                  <Tooltip content="Consumir">
-                    <DollarSign />
-                  </Tooltip>
                   <Tooltip content="Editar">
                     <Pen />
                   </Tooltip>

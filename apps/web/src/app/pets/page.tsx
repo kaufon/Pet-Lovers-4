@@ -1,4 +1,4 @@
-import { PetsPage } from "@/src/ui/components/pages/pets";
+import { PetsPage } from "../../ui/components/pages/pets"; 
 
 const Page = () => {
   return <PetsPage />;
