@@ -52,4 +52,3 @@ Abra seu navegador e navegue até `http://localhost:3000` para acessar a aplica�
 <p align="center">
   Feito com ❤️ por Kauan Fonseca 
 </p>
-# Pet-Lovers-4
