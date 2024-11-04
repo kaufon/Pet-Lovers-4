@@ -1,21 +1,21 @@
 import type { ClientDto } from "@core/dtos";
 import {
-  TableCell,
-  TableBody,
   Table,
+  TableBody,
+  TableCell,
   TableColumn,
   TableHeader,
   TableRow,
   Tooltip,
 } from "@nextui-org/react";
-import { ClientsService } from "apps/web/src/api/services";
-import { DollarSign, Pen, Trash } from "lucide-react";
-import { AlertModal } from "../../../commons/alert-modal";
+import { EyeIcon, Pen, Trash } from "lucide-react";
+import Link from "next/link";
 import { useRef, useState } from "react";
-import { useClientTable } from "./use-client-table";
+import { AlertModal } from "../../../commons/alert-modal";
 import { Drawer } from "../../../commons/drawer";
-import { UpdateClientForm } from "../update-client-form";
 import type { DrawerRef } from "../../../commons/drawer/types/drawer-ref";
+import { UpdateClientForm } from "../update-client-form";
+import { useClientTable } from "./use-client-table";
 
 type ClientTableProps = {
   isLoading: boolean;
@@ -81,6 +81,12 @@ export const ClientTable = ({
                   <Tooltip content="Editar">
                     <Pen onClick={() => handleClientEditSelection(client)} />
                   </Tooltip>
+                  <Tooltip content="Ver cliente">
+                    <Link href={`/${client.id}`}>
+                      <EyeIcon />
+                    </Link>
+                  </Tooltip>
+
                   <Tooltip content="Deletar">
                     <Trash
                       onClick={() => {

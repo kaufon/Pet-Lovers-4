@@ -6,6 +6,9 @@ export const ClientsService = (apiClient: IApiClient): IClientService => {
     async listClients() {
       return await apiClient.get<ClientDto[]>("/cliente/clientes");
     },
+    async getClient(clientId:number){
+      return await apiClient.get<ClientDto>(`/cliente/${clientId}`)
+    },
     async updateClient(partialClientDto: Partial<ClientDto>, clientId: number) {
       console.log("Updating client with:", {
         id: clientId,
