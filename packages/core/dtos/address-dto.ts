@@ -3,9 +3,8 @@ export type AddressDto = {
   id?: number;
   estado: string;
   cidade: string;
-  informacoesAdicionais: string;
-  rua: number;
+  informacoesAdicionais?: string;
+  rua: string;
   codigoPostal: string;
   numero: string;
-  links: LinkDto[];
 };
