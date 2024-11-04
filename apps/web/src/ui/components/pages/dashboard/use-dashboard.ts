@@ -7,7 +7,7 @@ import { useState } from "react";
 export function useDashboard() {
   const { clientService } = useApi();
   async function fetchClients() {
-    const response = await clientService.listUsers();
+    const response = await clientService.listClients();
     if (response.isFailure) {
       throw new Error(response.errorMessage);
     }
@@ -19,7 +19,7 @@ export function useDashboard() {
     key: CACHE.client.key,
   });
   async function deleteClient(clientId: number) {
-    const response = await clientService.deleteUser(clientId);
+    const response = await clientService.deleteClient(clientId);
     if (response.isFailure) {
       throw new Error(response.errorMessage);
     }
