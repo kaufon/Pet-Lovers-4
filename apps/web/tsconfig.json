@@ -22,6 +22,9 @@
     "paths": {
       "@core/*": [
         "packages/core/*"
+      ],
+      "@validation/*": [
+        "packages/validation/*"
       ]
     },
     "plugins": [
