@@ -7,5 +7,5 @@ export const addressSchema = z.object({
   rua: stringSchema,
   numero: stringSchema,
   codigoPostal: stringSchema.max(8,{message: "CEP inválido"}),
-  informacoesAdicionais: stringSchema.optional(),
+  informacoesAdicionais: z.string().optional(),
 });
