@@ -35,7 +35,7 @@ npm install
 
 ### Passo 3: Executar o Projeto
 
-Após configurar as variáveis de ambiente, você pode executar o projeto usando o seguinte comando na pasta `Pet-Lovers-3`:
+Após configurar as variáveis de ambiente, você pode executar o projeto usando o seguinte comando na pasta `Pet-Lovers-4`:
 
 ```bash
 npm run dev
